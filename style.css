@@ -1,0 +1,356 @@
+/* 全体設定 */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        "Noto Sans JP",
+        sans-serif;
+
+    background-color: #f5f5f8;
+    color: #333;
+}
+
+
+/* ヘッダー */
+
+.header {
+    background-color: #30264a;
+    color: white;
+    padding: 25px 40px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header h1 {
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.header p {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #d5cce8;
+}
+
+
+/* メイン */
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.intro {
+    margin-bottom: 30px;
+}
+
+.intro h2 {
+    font-size: 25px;
+    color: #30264a;
+    margin-bottom: 10px;
+}
+
+.intro p {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* 2カラム */
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 25px;
+}
+
+
+/* カード */
+
+.card {
+    background-color: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.04);
+}
+
+.card h2 {
+    color: #30264a;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.section-description {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+
+/* 画像アップロード */
+
+.upload-button {
+    display: inline-block;
+    background-color: #69558f;
+    color: white;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.2s;
+}
+
+.upload-button:hover {
+    background-color: #51406f;
+}
+
+
+/* 画像表示エリア */
+
+.image-container {
+    position: relative;
+    width: 100%;
+    min-height: 450px;
+    background-color: #f4f3f7;
+    border: 2px dashed #d8d3e2;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#characterImage {
+    display: block;
+    max-width: 100%;
+    max-height: 650px;
+    object-fit: contain;
+}
+
+#characterImage[hidden] {
+    display: none;
+}
+
+.empty-message {
+    text-align: center;
+    color: #aaa;
+}
+
+.empty-message span {
+    font-size: 40px;
+}
+
+.empty-message p {
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+#markerLayer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.image-help {
+    font-size: 12px;
+    color: #999;
+    margin-top: 15px;
+    line-height: 1.7;
+}
+
+
+/* パーツの目印 */
+
+.marker {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #ed6b91;
+    color: white;
+    border: 2px solid white;
+    font-size: 12px;
+    font-weight: bold;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    pointer-events: auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.marker:hover {
+    background-color: #d94d78;
+}
+
+
+/* パーツ選択 */
+
+.part-area {
+    margin-top: 25px;
+}
+
+.part-area h3,
+.material-area h3,
+.marker-area h3 {
+    font-size: 15px;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.part-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.part-button {
+    padding: 12px;
+    background-color: #f4f2f8;
+    border: 1px solid #e5e0ed;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #555;
+    transition: 0.2s;
+}
+
+.part-button:hover {
+    background-color: #eae5f2;
+}
+
+.part-button.active {
+    background-color: #69558f;
+    color: white;
+    border-color: #69558f;
+}
+
+
+/* 選択中パーツ */
+
+.selected-part {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f7f5fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 25px;
+}
+
+.selected-part span {
+    font-size: 13px;
+    color: #888;
+}
+
+.selected-part strong {
+    color: #69558f;
+    font-size: 15px;
+}
+
+
+/* 素材候補 */
+
+.material-area {
+    margin-top: 30px;
+}
+
+.material-card {
+    border: 1px solid #e9e5ef;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    background-color: #fff;
+}
+
+.material-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #69558f;
+    margin-bottom: 8px;
+}
+
+.material-card p {
+    font-size: 13px;
+    color: #777;
+    line-height: 1.7;
+}
+
+
+/* 登録パーツ一覧 */
+
+.marker-area {
+    margin-top: 30px;
+}
+
+#markerList {
+    list-style: none;
+}
+
+#markerList li {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.no-marker {
+    color: #aaa;
+}
+
+.delete-button {
+    border: none;
+    background-color: #fce9ee;
+    color: #d94d78;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+
+/* フッター */
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #aaa;
+    font-size: 12px;
+}
+
+
+/* スマートフォン対応 */
+
+@media (max-width: 850px) {
+
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .header {
+        padding: 20px;
+    }
+
+    .container {
+        margin-top: 25px;
+    }
+
+    .image-container {
+        min-height: 350px;
+    }
+
+}
