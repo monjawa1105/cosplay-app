@@ -1,5 +1,3 @@
-/* 全体設定 */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -100,7 +98,7 @@ body {
 }
 
 
-/* 画像アップロード */
+/* アップロード */
 
 .upload-button {
     display: inline-block;
@@ -111,7 +109,6 @@ body {
     font-size: 13px;
     cursor: pointer;
     margin-bottom: 20px;
-    transition: 0.2s;
 }
 
 .upload-button:hover {
@@ -119,7 +116,7 @@ body {
 }
 
 
-/* 画像表示エリア */
+/* 画像エリア */
 
 .image-container {
     position: relative;
@@ -128,9 +125,11 @@ body {
     background-color: #f4f3f7;
     border: 2px dashed #d8d3e2;
     border-radius: 10px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     overflow: hidden;
 }
 
@@ -139,6 +138,7 @@ body {
     max-width: 100%;
     max-height: 650px;
     object-fit: contain;
+    cursor: crosshair;
 }
 
 #characterImage[hidden] {
@@ -159,10 +159,24 @@ body {
     margin-top: 10px;
 }
 
+
+/* クリック位置の目印 */
+
 #markerLayer {
     position: absolute;
     inset: 0;
     pointer-events: none;
+}
+
+.marker {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: #ed6b91;
+    border: 3px solid white;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .image-help {
@@ -173,112 +187,62 @@ body {
 }
 
 
-/* パーツの目印 */
+/* 解析状態 */
 
-.marker {
-    position: absolute;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: #ed6b91;
-    color: white;
-    border: 2px solid white;
-    font-size: 12px;
-    font-weight: bold;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    pointer-events: auto;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.marker:hover {
-    background-color: #d94d78;
+.analysis-status {
+    padding: 15px;
+    background-color: #f7f5fa;
+    border-radius: 8px;
+    color: #69558f;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 20px;
 }
 
 
-/* パーツ選択 */
+/* 解析結果 */
 
-.part-area {
+.result-section {
     margin-top: 25px;
 }
 
-.part-area h3,
-.material-area h3,
-.marker-area h3 {
+.result-section h3 {
     font-size: 15px;
     margin-bottom: 15px;
     color: #444;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
 }
 
-.part-buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.part-button {
-    padding: 12px;
-    background-color: #f4f2f8;
-    border: 1px solid #e5e0ed;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 13px;
-    color: #555;
-    transition: 0.2s;
-}
-
-.part-button:hover {
-    background-color: #eae5f2;
-}
-
-.part-button.active {
-    background-color: #69558f;
-    color: white;
-    border-color: #69558f;
-}
-
-
-/* 選択中パーツ */
-
-.selected-part {
+.result-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    background-color: #f7f5fa;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 25px;
+    padding: 12px 5px;
+    border-bottom: 1px solid #f0edf3;
+    font-size: 13px;
 }
 
-.selected-part span {
-    font-size: 13px;
+.result-item span {
     color: #888;
 }
 
-.selected-part strong {
+.result-item strong {
     color: #69558f;
-    font-size: 15px;
 }
 
 
 /* 素材候補 */
-
-.material-area {
-    margin-top: 30px;
-}
 
 .material-card {
     border: 1px solid #e9e5ef;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 12px;
-    background-color: #fff;
 }
 
-.material-name {
-    font-size: 15px;
-    font-weight: bold;
+.material-card h4 {
     color: #69558f;
+    font-size: 14px;
     margin-bottom: 8px;
 }
 
@@ -289,37 +253,13 @@ body {
 }
 
 
-/* 登録パーツ一覧 */
+/* テキスト */
 
-.marker-area {
-    margin-top: 30px;
-}
-
-#markerList {
-    list-style: none;
-}
-
-#markerList li {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
+.result-text {
     font-size: 13px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.no-marker {
-    color: #aaa;
-}
-
-.delete-button {
-    border: none;
-    background-color: #fce9ee;
-    color: #d94d78;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 11px;
+    color: #666;
+    line-height: 1.8;
+    white-space: pre-wrap;
 }
 
 
@@ -333,7 +273,7 @@ footer {
 }
 
 
-/* スマートフォン対応 */
+/* スマートフォン */
 
 @media (max-width: 850px) {
 

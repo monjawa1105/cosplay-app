@@ -4,178 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosplay Costume Assistant</title>
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header class="header">
-        <div class="header-content">
-            <h1>Cosplay Costume Assistant</h1>
-            <p>コスプレ衣装制作支援アプリ</p>
-        </div>
-    </header>
+<header class="header">
+    <div class="header-content">
+        <h1>Cosplay Costume Assistant</h1>
+        <p>コスプレ衣装制作支援アプリ</p>
+    </div>
+</header>
 
-    <main class="container">
+<main class="container">
 
-        <section class="intro">
-            <h2>衣装制作をもっと簡単に。</h2>
-            <p>
-                キャラクター画像から衣装のパーツや素材を確認し、
-                衣装制作に役立つ情報を取得できます。
+    <section class="intro">
+        <h2>衣装制作をもっと簡単に。</h2>
+        <p>
+            キャラクター画像をクリックするだけで、
+            AIが衣装パーツや素材の特徴を分析します。
+        </p>
+    </section>
+
+    <div class="main-grid">
+
+        <!-- 画像エリア -->
+        <section class="card image-section">
+
+            <h2>Character Image</h2>
+
+            <p class="section-description">
+                キャラクター画像をアップロードしてください。
             </p>
-        </section>
 
-        <div class="main-grid">
+            <label for="imageUpload" class="upload-button">
+                画像をアップロード
+            </label>
 
-            <!-- 左側：画像エリア -->
-            <section class="card image-section">
+            <input
+                type="file"
+                id="imageUpload"
+                accept="image/*"
+                hidden
+            >
 
-                <h2>Character Image</h2>
-                <p class="section-description">
-                    キャラクター画像をアップロードしてください。
-                </p>
+            <div class="image-container" id="imageContainer">
 
-                <label for="imageUpload" class="upload-button">
-                    画像をアップロード
-                </label>
+                <div class="empty-message" id="emptyMessage">
+                    <span>＋</span>
+                    <p>ここに画像が表示されます</p>
+                </div>
 
-                <input
-                    type="file"
-                    id="imageUpload"
-                    accept="image/*"
+                <img
+                    id="characterImage"
+                    alt="キャラクター画像"
                     hidden
                 >
 
-                <div class="image-container" id="imageContainer">
+                <div id="markerLayer"></div>
 
-                    <div class="empty-message" id="emptyMessage">
-                        <span>＋</span>
-                        <p>ここに画像が表示されます</p>
+            </div>
+
+            <p class="image-help">
+                解析したい衣装の部分をクリックしてください。
+                AIがクリックした位置のパーツを自動で判断します。
+            </p>
+
+        </section>
+
+
+        <!-- 解析結果エリア -->
+        <section class="card analysis-section">
+
+            <h2>AI Costume Analysis</h2>
+
+            <p class="section-description">
+                画像をクリックするとAIによる解析結果が表示されます。
+            </p>
+
+            <div id="analysisStatus" class="analysis-status">
+                画像をアップロードして、衣装の一部分をクリックしてください。
+            </div>
+
+            <div id="analysisResults" hidden>
+
+                <div class="result-section">
+                    <h3>パーツ情報</h3>
+
+                    <div class="result-item">
+                        <span>パーツ名</span>
+                        <strong id="partName">-</strong>
                     </div>
 
-                    <img
-                        id="characterImage"
-                        alt="キャラクター画像"
-                        hidden
-                    >
-
-                    <div id="markerLayer"></div>
-
-                </div>
-
-                <p class="image-help">
-                    パーツを選択した状態で画像をクリックすると、
-                    目印を追加できます。
-                </p>
-
-            </section>
-
-
-            <!-- 右側：分析エリア -->
-            <section class="card analysis-section">
-
-                <h2>Costume Analysis</h2>
-                <p class="section-description">
-                    調べたい衣装パーツを選択してください。
-                </p>
-
-                <!-- パーツ選択 -->
-                <div class="part-area">
-
-                    <h3>衣装パーツ</h3>
-
-                    <div class="part-buttons">
-
-                        <button class="part-button active"
-                            data-part="skirt">
-                            スカート
-                        </button>
-
-                        <button class="part-button"
-                            data-part="jacket">
-                            ジャケット
-                        </button>
-
-                        <button class="part-button"
-                            data-part="coat">
-                            羽織・コート
-                        </button>
-
-                        <button class="part-button"
-                            data-part="inner">
-                            インナー
-                        </button>
-
-                        <button class="part-button"
-                            data-part="sleeve">
-                            袖
-                        </button>
-
-                        <button class="part-button"
-                            data-part="decoration">
-                            装飾
-                        </button>
-
+                    <div class="result-item">
+                        <span>色</span>
+                        <strong id="partColor">-</strong>
                     </div>
 
+                    <div class="result-item">
+                        <span>形状</span>
+                        <strong id="partShape">-</strong>
+                    </div>
                 </div>
 
 
-                <!-- 選択中のパーツ -->
-                <div class="selected-part">
-                    <span>選択中のパーツ</span>
-                    <strong id="selectedPartName">スカート</strong>
-                </div>
-
-
-                <!-- 素材候補 -->
-                <div class="material-area">
-
+                <div class="result-section">
                     <h3>素材候補</h3>
-
-                    <div id="materialResults">
-
-                        <div class="material-card">
-                            <div class="material-name">
-                                ポリエステル
-                            </div>
-                            <p>
-                                比較的シワになりにくく、
-                                衣装制作で扱いやすい素材です。
-                            </p>
-                        </div>
-
-                    </div>
-
+                    <div id="materialResults"></div>
                 </div>
 
 
-                <!-- 目印一覧 -->
-                <div class="marker-area">
-
-                    <h3>登録したパーツ</h3>
-
-                    <ul id="markerList">
-                        <li class="no-marker">
-                            まだパーツが登録されていません。
-                        </li>
-                    </ul>
-
+                <div class="result-section">
+                    <h3>視覚的特徴</h3>
+                    <p id="partFeatures" class="result-text"></p>
                 </div>
 
-            </section>
 
-        </div>
+                <div class="result-section">
+                    <h3>推定理由</h3>
+                    <p id="analysisReason" class="result-text"></p>
+                </div>
 
-    </main>
 
-    <footer>
-        <p>Cosplay Costume Assistant</p>
-    </footer>
+                <div class="result-section">
+                    <h3>衣装制作へのヒント</h3>
+                    <p id="productionAdvice" class="result-text"></p>
+                </div>
 
-    <script src="script.js"></script>
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+<footer>
+    <p>Cosplay Costume Assistant</p>
+</footer>
+
+<script src="script.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pillow
+torch
+transformers>=4.57.0
+accelerate
+qwen-vl-utils==0.0.14
